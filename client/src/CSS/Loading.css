@@ -1,0 +1,14 @@
+.paginado{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.title4{
+    color:#020101;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+   margin-left: 200px;
+   margin-top: 300px;
+   justify-content: end;
+  
+    
+} 
