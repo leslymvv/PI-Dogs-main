@@ -61,24 +61,25 @@ function rootReducer(state= inicialState, action){
                 dogs: filterTemperament,
             }
         case "FILTER_EXISTING_BREED":
-            
             if(action.payload === "todo"){
-            
+                const filteredDogs = state.allDogs
                 return { 
                     ...state,
-                    dogs: [...state.allDogs],
-                    
+                        dogs: filteredDogs,
                 }
             }else if( action.payload === "db"){
-
-             return { 
-                ...state,
-                 dogs : state.allDogs.filter((breed)=> breed.createdInBd === true),
+                console.log(state.allDogs)
+                const filteredDogs = state.allDogs.filter((breed)=> isNaN(breed.id))
+                console.log(filteredDogs);
+                return {
+                    ...state,
+                        dogs : filteredDogs,
                     }
             }else{
+                const filteredDogs = state.allDogs.filter((breed)=> !isNaN(breed.id))
                 return { 
                     ...state,
-                     dogs : state.allDogs.filter((breed)=> breed.createdInBd === undefined),
+                        dogs : filteredDogs,
                     }
             }
 

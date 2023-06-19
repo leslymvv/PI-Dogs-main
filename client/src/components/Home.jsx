@@ -23,7 +23,7 @@ export default function Home() {
   
   useEffect(() => {
     setCurrentPage(1);
-  }, [dispatch]);
+  }, [dogs, dispatch]);
 
   const mostrarCards = (dogs) => {
     const currentDogs = dogs.slice(indexOfFirstDogs, indexOfLastDogs);
@@ -58,7 +58,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="principal">
-          <NavBar />
+          <NavBar/>
         </div>
         <div>{dogs.length > 0 ? mostrarCards(dogs) : mostrarCards(allDogs)}</div>
       </div>

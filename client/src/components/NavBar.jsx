@@ -32,7 +32,7 @@ export default function NavBar(){
         <FilterTempe /> 
       </div>  
       <div>
-      <FilterExistingBreed/>
+      <FilterExistingBreed />
       </div>
       <div>
      <Search/>

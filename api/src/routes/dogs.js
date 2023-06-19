@@ -32,47 +32,46 @@ const getApi = async () => {
             weight: e.weight.imperial,
             height: e.height.imperial,
             life_span: e.life_span,
+            createInBd: false
         };
         });
         return apiInfo;
-        };
+};
 
-    const getBreeds = async () => {
-        const apiInfo = await getApi();
-        const bdInfo = await getBd();
-        const allInfo = apiInfo.concat(bdInfo);
-        return allInfo;
-        
-        };
+const getBreeds = async () => {
+    const apiInfo = await getApi();
+    const bdInfo = await getBd();
+    const allInfo = apiInfo.concat(bdInfo);
+    return allInfo;
+};
 
-    router.get("/", async (req, res) => {
-        const { name } = req.query;
-        const allBreeds = await getBreeds();
+router.get("/", async (req, res) => {
+    const { name } = req.query;
+    console.log(name)
+    const allBreeds = await getBreeds();
 
-         if (!name) {
-         res.status(200).json(allBreeds);
-         
-        } else {
-            const filtrados = allBreeds.filter((e)  => {
-                  const names = e.name.toUpperCase();
-                  if (names.includes(name.toUpperCase())) return names;
-                });
-                filtrados.length
-                ? res.status(200).json(filtrados)
-                : res.status(400).send("Raza no encontrada");
-              }
-            });
+    if (!name) {
+        res.status(200).json(allBreeds);
+    } else {
+        const filtrados = allBreeds.filter((e)  => {
+            return e.name.toLowerCase().startsWith(name.toLowerCase());
+        });
+        filtrados.length > 0
+            ? res.status(200).json(filtrados)
+            : res.status(400).send("Raza no encontrada");
+    }
+});
 
-            router.get("/:id", async (req, res) => { 
-                const id = req.params.id;
-                const breeds = await getBreeds();
+router.get("/:id", async (req, res) => { 
+    const id = req.params.id;
+    const breeds = await getBreeds();
                 
-                if (id) {
-                    const filtrados = await breeds.filter((e) =>  e.id == id);
-                    filtrados.length
-                    ? res.status(200).json(filtrados)
-                    : res.status(404).send("Raza no encontrada por ID");
-                    
-                }
-            })
-            module.exports = router;
+    if (id) {
+        const filtrados = await breeds.filter((e) =>  e.id == id);
+        filtrados.length
+            ? res.status(200).json(filtrados)
+            : res.status(404).send("Raza no encontrada por ID");
+        }
+})
+
+module.exports = router;

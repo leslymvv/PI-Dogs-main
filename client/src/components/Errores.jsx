@@ -1,8 +1,11 @@
-export function validation(input){
+export function validation(dogs,input){
     let errors ={};
+    const exist = dogs && dogs.some(dog => dog.name.trim().toLowerCase() === input.name.trim().toLowerCase())
 
     if(!input.name){
         errors.name ="enter the name please";
+    }else if(exist){
+        errors.name ="the breed already exists, write another name";
     }else if(input.name.search(/^[a-zA-Z\s]*$/) ){
         errors.name ="No numbers or symbols are allowed in the name "
     }
@@ -38,8 +41,9 @@ export function validation(input){
     }else if( parseInt(input.maxlife_span) < parseInt(input.minlife_span) ){
         errors.maxlife_span = "The maximum years cannot be minor than the minimum years";
     }
+    if(!/^(http|https):\/\/[\w\-]+(\.[\w\-]+)+([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?\.(jpg|gif|png)$/.test(input.image)){
+        errors.image_span ="enter the image url please";
+    }
     
     return errors;
-
-    
 }

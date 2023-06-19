@@ -29,7 +29,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    creteInBd: {
+    createInBd: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
